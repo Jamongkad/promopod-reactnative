@@ -38,12 +38,12 @@ class FlightDetailsScreen extends Component {
                     </View>
                     <View style={{paddingRight: 15, paddingTop: 5, alignItems: 'flex-end'}}>
                         <Text style={[styles.infoLabels]}>Price/Person</Text>
-                        <Text style={{color: '#000', fontSize: 27, fontWeight: 'bold'}}>PHP{params.price}</Text>
+                        <Text style={styles.price}>PHP{params.price}</Text>
                     </View>
                 </ScrollView>
                 <TouchableHighlight underlayColor="white" onPress={() => this.props.openWebsite(params) }>
-                    <View style={{height: 55, backgroundColor: '#E97C37', justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{color: '#FFF', fontWeight: 'bold'}}>Go to {params.provider_fullname} Website</Text>
+                    <View style={styles.websiteButtonContainer}>
+                        <Text style={styles.websiteButtonText}>Go to {params.provider_fullname} Website</Text>
                     </View>
                 </TouchableHighlight>
             </View>
@@ -83,6 +83,15 @@ const styles = {
     },
     flightBorder: {
         borderBottomWidth: 1, borderColor: '#6D98B3'
+    },
+    price: {
+        color: '#000', fontSize: 27, fontWeight: 'bold'
+    },
+    websiteButtonContainer: {
+        height: 55, backgroundColor: '#E97C37', justifyContent: 'center', alignItems: 'center'
+    },
+    websiteButtonText: {
+        color: '#FFF', fontWeight: 'bold', fontSize: 17
     }
 }
 
