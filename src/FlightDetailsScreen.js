@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableHighlight  } from 'react-native';
 import { connect } from 'react-redux';
 import { openWebsite } from './actions';
+import { numberWithCommas, formatMyDate, formatMyDay } from './helpers';
 import moment from 'moment';
 
 class FlightDetailsScreen extends Component {
@@ -26,19 +27,19 @@ class FlightDetailsScreen extends Component {
                         </View>
                         <View style={[{height:60}, styles.flightDetailsContainer]}>
                             <Text style={styles.infoLabels}>Airline</Text>
-                            <Text style={{color: '#000', fontSize: 20, fontWeight: 'bold'}}>{params.provider_fullname}</Text>
+                            <Text style={styles.flightDetailsLabel}>{params.provider_fullname}</Text>
                         </View>
                         <View style={[{height:110}, styles.flightDetailsContainer]}>
                             <Text style={[styles.infoLabels, {paddingBottom:5}]}>Travel Period</Text>
-                            <Text style={styles.flightDetailsLabel}>{this.formatMyDate(params.travel_period_from)}</Text>
-                            <Text style={styles.flightDetailsDatesLabel}>{this.formatMyDay(params.travel_period_from)}</Text>
-                            <Text style={styles.flightDetailsLabel}>{this.formatMyDate(params.travel_period_to)}</Text>
-                            <Text style={styles.flightDetailsDatesLabel}>{this.formatMyDay(params.travel_period_to)}</Text>
+                            <Text style={styles.flightDetailsLabel}>{formatMyDate(params.travel_period_from)}</Text>
+                            <Text style={styles.flightDetailsDatesLabel}>{formatMyDay(params.travel_period_from)}</Text>
+                            <Text style={styles.flightDetailsLabel}>{formatMyDate(params.travel_period_to)}</Text>
+                            <Text style={styles.flightDetailsDatesLabel}>{formatMyDay(params.travel_period_to)}</Text>
                         </View>
                     </View>
-                    <View style={{paddingRight: 15, paddingTop: 5, alignItems: 'flex-end'}}>
+                    <View style={styles.priceContainer}>
                         <Text style={[styles.infoLabels]}>Price/Person</Text>
-                        <Text style={styles.price}>PHP{params.price}</Text>
+                        <Text style={styles.price}>PHP{numberWithCommas(params.price)}</Text>
                     </View>
                 </ScrollView>
                 <TouchableHighlight underlayColor="white" onPress={() => this.props.openWebsite(params) }>
@@ -48,14 +49,6 @@ class FlightDetailsScreen extends Component {
                 </TouchableHighlight>
             </View>
         );
-    }
-
-    formatMyDate(my_date) {
-        return moment.utc(my_date, 'YYYY-MM-DD HH:mm:ss').local().format('MMMM d, YYYY');
-    }
-
-    formatMyDay(my_date) {
-        return moment.utc(my_date, 'YYYY-MM-DD HH:mm:ss').local().format('dddd');
     }
 }
 
@@ -76,13 +69,16 @@ const styles = {
         color: '#74A5C2', fontSize: 12
     },
     infoLabels: {
-        color: '#D1D1D1', fontSize: 12
+        color: '#B2BFBF', fontSize: 12
     },
     airportLabels: {
         color: '#fff', fontWeight: 'bold', fontSize: 17
     },
     flightBorder: {
         borderBottomWidth: 1, borderColor: '#6D98B3'
+    },
+    priceContainer: {
+        paddingRight: 15, paddingTop: 5, alignItems: 'flex-end'
     },
     price: {
         color: '#000', fontSize: 27, fontWeight: 'bold'

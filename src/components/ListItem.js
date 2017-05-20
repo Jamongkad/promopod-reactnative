@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { numberWithCommas } from '../helpers';
 
 class ListItem extends Component {
     render() {
@@ -15,13 +16,11 @@ class ListItem extends Component {
                 <View style={[styles.rowStyle, backgroundColor]}>
                     <View style={styles.topPortion}>
                         <Text style={{fontWeight:'bold'}}>{flight.displayFlights}</Text>
-                        <Text>{flight.numberOfFlights} flights available</Text>
+                        <Text style={styles.infoLabels}>{flight.numberOfFlights} flights available</Text>
                     </View>
-                    <View style={{justifyContent:'flex-end', flexDirection:'column', paddingBottom:7, paddingRight:10}}>
-                        <Text style={{alignSelf:'flex-end'}}>lowest promo for
-                            <Text style={{fontSize:15,fontWeight:'bold'}}>PHP{flight.startingFrom}</Text>
-                        </Text>
-                        <Text style={{alignSelf:'flex-end'}}>by {flight.cheapestProvider}</Text>
+                    <View style={{paddingBottom:7, paddingRight:10, alignItems: 'flex-end'}}>
+                        <Text style={styles.infoLabels}>lowest promo for <Text style={styles.priceLabel}>PHP{numberWithCommas(flight.startingFrom)}</Text></Text>
+                        <Text style={styles.infoLabels}>by <Text style={styles.providerLabel}>{flight.cheapestProvider}</Text></Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -35,6 +34,15 @@ const styles = {
     },
     topPortion: {
         justifyContent:'flex-start', flexDirection:'column', flex:1, paddingTop:10, paddingLeft:10
+    },
+    providerLabel: {
+        color: '#52A1C8'
+    },
+    infoLabels: {
+        color: '#B2BFBF', fontSize: 12
+    },
+    priceLabel: {
+        fontSize:15,fontWeight:'bold', color: '#4B6496'
     }
 }
 

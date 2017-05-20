@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import moment from 'moment';
+import { numberWithCommas, formatMyDate } from '../helpers';
 
 class FlightPromosListItem extends Component {
     render() {
@@ -16,7 +16,7 @@ class FlightPromosListItem extends Component {
             <TouchableWithoutFeedback onPress={() => this.next()}>
                 <View style={[{flexDirection: 'row', flex: 1.0, height: 100}, backgroundColor]}>
                     <View style={{flex: 0.3, borderRightWidth: 1, borderColor: "#909FBB", justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{color: '#47A0D0', fontWeight: '500'}}>PHP{data.price}</Text>
+                        <Text style={{color: '#47A0D0', fontWeight: '500'}}>PHP{numberWithCommas(data.price)}</Text>
                     </View>
                     <View style={{flex: 0.7}}>
                         <View style={{flex: 0.35}}>
@@ -27,17 +27,13 @@ class FlightPromosListItem extends Component {
                         </View>
                         <View style={{flex: 0.175, flexDirection: 'row', paddingLeft: 10, paddingBottom: 6}}>
                             <Text style={{alignSelf: 'flex-end'}}>
-                                {this.formatMyDate(data.travel_period_from)} to {this.formatMyDate(data.travel_period_to)}
+                                {formatMyDate(data.travel_period_from)} to {formatMyDate(data.travel_period_to)}
                             </Text>
                         </View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
         );
-    }
-
-    formatMyDate(my_date) {
-        return moment.utc(my_date, 'YYYY-MM-DD HH:mm:ss').local().format('MMM d, YYYY');
     }
 
     next() {
