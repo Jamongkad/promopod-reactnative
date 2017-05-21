@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ListView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchGroupFlights, toggleSearchBar  } from './actions';
+import { fetchGroupFlights, toggleSearchBar, searchFlights  } from './actions';
 import ListItem from './components/ListItem';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Search from 'react-native-search-box';
@@ -80,13 +80,17 @@ class HomeScreen extends Component {
             return (
                 <Search
                     ref="search_box"
-                    /**
-                     * There many props that can customizable
-                     * Please scroll down to Props section
-                     */
+                    onChangeText={this.onChangeText}
                 />
             );
         }
+    }
+
+    onChangeText = (text) => {
+        return new Promise((resolve, reject) => {
+            this.props.searchFlights(text);
+            resolve();
+        });
     }
 
     renderRow(flight, sectionID, rowID, highlightRow) {
@@ -104,4 +108,4 @@ const mapStateToProps = ({ flightData }) => {
     return { flights, loading, show_searchbar };
 }
 
-export default connect(mapStateToProps, { fetchGroupFlights, toggleSearchBar })(HomeScreen);
+export default connect(mapStateToProps, { fetchGroupFlights, toggleSearchBar, searchFlights })(HomeScreen);
