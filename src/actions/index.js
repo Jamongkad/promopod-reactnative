@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Linking } from 'react-native';
-import { FETCH_GROUP_FLIGHTS, FETCH_PROMO_DETAIL_FLIGHTS, LOADING_FLIGHT } from './types';
+import { FETCH_GROUP_FLIGHTS, FETCH_PROMO_DETAIL_FLIGHTS, LOADING_FLIGHT, TOGGLE_SEARCHBAR } from './types';
 
 export const testFetch = () => {
     return {
@@ -63,6 +63,10 @@ export const openWebsite = (flights) => {
             }
         });
     }
+}
+
+export const toggleSearchBar = () => {
+    return { type: TOGGLE_SEARCHBAR };
 }
 
 const loadingFlight = (dispatch) => {

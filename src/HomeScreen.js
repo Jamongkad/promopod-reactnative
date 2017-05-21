@@ -1,19 +1,45 @@
 import React, { Component } from 'react';
-import { View, ListView } from 'react-native';
+import { View, ListView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchGroupFlights } from './actions';
+import { fetchGroupFlights, toggleSearchBar  } from './actions';
 import ListItem from './components/ListItem';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Search from 'react-native-search-box';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 class HomeScreen extends Component {
-    static navigationOptions = {
-        title: 'Promo Pod',
+
+    static navigationOptions = ({ navigation }) => {
+
+        const {state, setParams} = navigation;
+
+        return {
+            title: 'Promo Pod',
+            headerRight: (
+                <TouchableHighlight style={{alignItems:'center', justifyContent:'center', paddingRight:15}}
+                                    onPress = { () => state.params.toggleSearch() }
+                                    underlayColor = 'transparent'>
+                    <View>
+                        <Icon name="search" size = {20} color = "#fff" />
+                    </View>
+                </TouchableHighlight>
+            )
+        }
     };
 
     constructor(props) {
         super(props);
         this.renderRow = this.renderRow.bind(this);
+    }
+
+    componentDidMount() {
+        //dynamically bind local method to React Navigation right button
+        this.props.navigation.setParams({ toggleSearch: this.toggleSearch });
+    }
+
+    toggleSearch = () => {
+        this.props.toggleSearchBar();
     }
 
     componentWillMount() {
@@ -38,6 +64,7 @@ class HomeScreen extends Component {
 
         return (
             <View style={{flex: 1, paddingTop:0, backgroundColor: '#FFF'}}>
+                {this.renderSearchBox()}
                 <ListView
                     enableEmptySections
                     dataSource={this.dataSource}
@@ -46,6 +73,20 @@ class HomeScreen extends Component {
                 <Spinner visible={loading} textContent={"Loading Promos..."} textStyle={{color: '#FFF'}} />
             </View>
         );
+    }
+
+    renderSearchBox() {
+        if(this.props.show_searchbar) {
+            return (
+                <Search
+                    ref="search_box"
+                    /**
+                     * There many props that can customizable
+                     * Please scroll down to Props section
+                     */
+                />
+            );
+        }
     }
 
     renderRow(flight, sectionID, rowID, highlightRow) {
@@ -59,8 +100,8 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = ({ flightData }) => {
-    const { flights, loading } = flightData;
-    return { flights, loading };
+    const { flights, loading, show_searchbar  } = flightData;
+    return { flights, loading, show_searchbar };
 }
 
-export default connect(mapStateToProps, { fetchGroupFlights })(HomeScreen);
+export default connect(mapStateToProps, { fetchGroupFlights, toggleSearchBar })(HomeScreen);
