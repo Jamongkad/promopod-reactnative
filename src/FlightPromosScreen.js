@@ -35,11 +35,11 @@ class FlightPromosScreen extends Component {
 
         return (
             <View style={{flex:10}}>
-                <View style={{flex: 0.5, backgroundColor: '#2A9BD7', flexDirection:'row'}}>
-                    <Text style={{alignSelf:'flex-end', left:12, color:'#84B5D4', fontSize:12}}>Select Departure</Text>
+                <View style={styles.departureContainer}>
+                    <Text style={styles.departureLabel}>Select Departure</Text>
                 </View>
-                <View style={{flex: 0.5, backgroundColor: '#2A9BD7', flexDirection:'row'}}>
-                    <Text style={{left:12, color:'#FFF', fontSize:15, fontWeight: 'bold'}}>{params.flights}</Text>
+                <View style={styles.departureContainer}>
+                    <Text style={styles.flightLabel}>{params.flights}</Text>
                 </View>
                 <View style={{flex: 9.0}}>
                     <ListView
@@ -72,6 +72,18 @@ class FlightPromosScreen extends Component {
         return <FlightPromosListItem data={data}
                                      rowID={rowID}
                                      navigate={this.props.navigation.navigate}/>
+    }
+}
+
+const styles = {
+    departureContainer: {
+        flex: 0.5, backgroundColor: '#2A9BD7', flexDirection:'row', alignItems: 'flex-end'
+    },
+    departureLabel: {
+        left:12, color:'#84B5D4', fontSize:12
+    },
+    flightLabel: {
+        left:12, color:'#FFF', fontSize:15, fontWeight: 'bold', alignSelf: 'flex-start'
     }
 }
 

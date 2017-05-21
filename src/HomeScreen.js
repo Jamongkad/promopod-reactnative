@@ -81,6 +81,7 @@ class HomeScreen extends Component {
                 <Search
                     ref="search_box"
                     onChangeText={this.onChangeText}
+                    onCancel={() => this.props.fetchGroupFlights()}
                 />
             );
         }
