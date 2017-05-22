@@ -15,10 +15,10 @@ class ListItem extends Component {
             <TouchableWithoutFeedback onPress={() => whenPress()}>
                 <View style={[styles.rowStyle, backgroundColor]}>
                     <View style={styles.topPortion}>
-                        <Text style={{fontWeight:'bold'}}>{flight.displayFlights}</Text>
+                        <Text style={styles.flightsLabel}>{flight.displayFlights}</Text>
                         <Text style={styles.infoLabels}>{flight.numberOfFlights} flights available</Text>
                     </View>
-                    <View style={{paddingBottom:7, paddingRight:10, alignItems: 'flex-end'}}>
+                    <View style={styles.additionalInfoContainer}>
                         <Text style={styles.infoLabels}>lowest promo for <Text style={styles.priceLabel}>PHP{numberWithCommas(flight.startingFrom)}</Text></Text>
                         <Text style={styles.infoLabels}>by <Text style={styles.providerLabel}>{flight.cheapestProvider}</Text></Text>
                     </View>
@@ -31,6 +31,12 @@ class ListItem extends Component {
 const styles = {
     rowStyle: {
         flex:1, height: 100
+    },
+    additionalInfoContainer: {
+        paddingBottom:7, paddingRight:10, alignItems: 'flex-end'
+    },
+    flightsLabel: {
+        fontWeight:'bold', fontSize: 19
     },
     topPortion: {
         justifyContent:'flex-start', flexDirection:'column', flex:1, paddingTop:10, paddingLeft:10

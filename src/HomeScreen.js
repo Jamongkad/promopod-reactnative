@@ -70,7 +70,7 @@ class HomeScreen extends Component {
                     dataSource={this.dataSource}
                     renderRow={this.renderRow}
                 />
-                <Spinner visible={loading} textContent={"Loading Promos..."} textStyle={{color: '#FFF'}} />
+                <Spinner visible={loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
             </View>
         );
     }

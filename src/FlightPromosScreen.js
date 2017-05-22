@@ -49,20 +49,20 @@ class FlightPromosScreen extends Component {
                         renderHeader={this.renderHeader}
                     />
                 </View>
-                <Spinner visible={loading} textContent={"Loading Flights..."} textStyle={{color: '#FFF'}} />
+                <Spinner visible={loading} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
             </View>
         );
     }
 
     renderHeader = () => {
         return (
-            <View style={{flexDirection: 'row', flex: 1.0, backgroundColor: '#fff'}}>
-                <View style={{flex: 0.3, borderRightWidth: 1, borderColor: "#909FBB", height:70, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#A2ADAD', fontWeight: '800'}}>One Way</Text>
-                    <Text style={{color: '#ACB1B4', fontSize: 12}}>price/person</Text>
+            <View style={styles.headerContainer}>
+                <View style={styles.additionalInfoContainer}>
+                    <Text style={styles.onewayLabel}>One Way</Text>
+                    <Text style={styles.pricePersonLabel}>price/person</Text>
                 </View>
-                <View style={{flex: 0.7, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#A2ADAD', fontWeight: '700', fontSize: 20}}>Airlines</Text>
+                <View style={styles.airlinesLabelContainer}>
+                    <Text style={styles.airlinesLabel}>Airlines</Text>
                 </View>
             </View>
         );
@@ -76,6 +76,24 @@ class FlightPromosScreen extends Component {
 }
 
 const styles = {
+    headerContainer: {
+        flexDirection: 'row', flex: 1.0, backgroundColor: '#fff'
+    },
+    additionalInfoContainer: {
+        flex: 0.3, borderRightWidth: 1, borderColor: "#909FBB", height:70, justifyContent: 'center', alignItems: 'center'
+    },
+    onewayLabel: {
+        color: '#A2ADAD', fontWeight: '700'
+    },
+    pricePersonLabel: {
+        color: '#ACB1B4', fontSize: 12
+    },
+    airlinesLabelContainer: {
+        flex: 0.7, justifyContent: 'center', alignItems: 'center'
+    },
+    airlinesLabel: {
+        color: '#A2ADAD', fontWeight: '700', fontSize: 20
+    },
     departureContainer: {
         flex: 0.5, backgroundColor: '#2A9BD7', flexDirection:'row', alignItems: 'flex-end'
     },
